@@ -1,0 +1,140 @@
+<!doctype html>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+      <title>Household Prep Tracker</title>
+      <meta name="theme-color" content="#0B7A43">
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-title" content="Prep Tracker">
+      <link rel="manifest" href="manifest.json">
+      <link rel="apple-touch-icon" href="icon-192.png">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+      <div class="gate" id="gAuth">
+        <div class="card">
+          <h1>Prep tracker</h1><p class="sub">Sign in to sync your household's stock across devices.</p>
+          <input id="aName" autocomplete="given-name" placeholder="Your first name (for new accounts)">
+          <input id="aEmail" type="email" autocomplete="email" placeholder="Email">
+          <input id="aPass" type="password" autocomplete="current-password" placeholder="Password (6+ characters)">
+          <button class="btn" id="aIn">Sign in</button>
+          <button class="ghost" id="aUp">Create account</button>
+          <button class="ghost" id="aReset">Forgot password</button>
+          <p class="err" id="aErr"></p>
+        </div>
+      </div>
+
+      <div class="gate" id="gHouse">
+        <div class="card">
+          <h1>Your household</h1><p class="sub" id="hMsg">Start a household, or open an invite link from someone in yours.</p>
+          <input id="hName" placeholder="Household name, e.g. The Okafors">
+          <button class="btn" id="hCreate">Start household</button>
+          <p class="or">Have an invite link? Paste it here.</p>
+          <input id="hLink" placeholder="Invite link">
+          <button class="ghost" id="hJoin">Join household</button>
+          <button class="ghost" id="hOut">Sign out</button>
+          <p class="err" id="hErr"></p>
+        </div>
+      </div>
+
+      <div class="gate" id="gSetup">
+        <div class="card">
+          <h1>Almost there</h1>
+          <p class="sub">Add your Firebase settings to firebase-config.js, then reload. The setup guide in README.md walks through it.</p>
+        </div>
+      </div>
+
+      <div class="toast" id="toast"></div>
+
+      <div class="wrap">
+        <div class="top">
+          <span>Household:<b id="hhName">…</b></span>
+          <span class="acts">
+            <button class="ghost" id="invite">Invite</button>
+            <button class="ghost" id="menuLeave">Leave</button>
+            <button class="ghost" id="menuOut">Sign out</button>
+          </span>
+        </div>
+        <h1>Household prep tracker</h1>
+        <p class="sub">Log what you have. The targets scale with your household and goal.</p>
+
+        <div class="hero">
+          <div class="big" id="pct">0%</div>
+          <p id="heroText">of your goal is stocked.</p>
+        </div>
+
+        <div class="controls">
+          <label class="people">Goal
+            <select id="horizon" aria-label="Goal">
+              <option value="0.5">2 weeks</option>
+              <option value="1">1 month</option>
+              <option value="3">3 months</option>
+              <option value="6">6 months</option>
+              <option value="12">12 months</option>
+              <option value="18">18 months</option>
+              <option value="24">24 months</option>
+            </select>
+          </label>
+          <label class="people">People <input id="people" type="number" min="1" max="20" inputmode="numeric"></label>
+        </div>
+
+        <div class="cats" id="cats"></div>
+
+        <h2>Heads up</h2>
+        <div class="gaps">
+          <ul id="alerts"></ul>
+        </div>
+
+        <h2>Buy next</h2>
+        <div class="gaps">
+          <ul id="gaps"></ul>
+        </div>
+
+        <div id="groups"></div>
+
+        <h2>Household members</h2>
+        <div class="gaps">
+          <ul id="members"></ul>
+        </div>
+        <div class="add">
+          <button class="ghost" id="editName">Change my name</button>
+          <button class="ghost" id="invite2">Invite someone</button>
+        </div>
+
+        <h2>Reminders</h2>
+        <p class="sub">Pick a monthly stock-up day. "Add to calendar" puts it in your phone or laptop calendar with an alert, plus a reminder 2 weeks before anything you've given an expiry date.</p>
+        <div class="add">
+          <label class="people">Stock-up day
+            <select id="stockDay"></select>
+          </label>
+          <button class="btn" id="cal">Add to calendar</button>
+        </div>
+
+        <h2>Add your own item</h2>
+        <div class="add">
+          <input id="nName" placeholder="Item, e.g. ogbono">
+          <input id="nUnit" placeholder="Unit, e.g. lb">
+          <input id="nTarget" type="number" min="0" step="any" placeholder="Target for goal">
+          <select id="nCat"></select>
+          <button class="btn" id="nAdd">Add item</button>
+        </div>
+
+        <h2>Backup</h2>
+        <p class="sub">Save a backup file to move your list to another device, or restore one here.</p>
+        <div class="add">
+          <button class="btn" id="exp">Save backup</button>
+          <label class="btn" style="display:inline-block">Restore backup
+            <input id="imp" type="file" accept=".json,application/json" hidden>
+          </label>
+        </div>
+
+        <p class="status" id="status">Loading…</p>
+      </div>
+
+      <script type="module" src="app.js"></script>
+    </body>
+  </html>
